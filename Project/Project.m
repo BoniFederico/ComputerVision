@@ -17,7 +17,9 @@ for ii =1: length ( iimage )
         squaresize =30;
     end
     imageData(ii).I = imread (imageFileName);
+    warning('off');
     imageData(ii).XYpixel = detectCheckerboardPoints (imageData (ii).I);
+    warning('on');
     
 end
 
