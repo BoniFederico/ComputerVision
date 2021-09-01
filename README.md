@@ -23,6 +23,6 @@ There are 3 folders in the project: --------------------------------------------
 
 
 Note: ------------------------------------------------------------------------------------
+!! -> Optimization Tool is needed to use the fsolve function. 
 
-
-In the Project file header, you can change the ImageSet variable to switch between image sets. ImageSet=false to use the images from lab lecture 1, ImageSet=true to use the images from the smartphone.
+!! -> In the Project file header, you can change the ImageSet variable to switch between image sets. ImageSet=false to use the images from lab lecture 1, ImageSet=true to use the images from the smartphone.
