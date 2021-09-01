@@ -1,6 +1,6 @@
 # ComputerVisionProject
 
-The project is divided into 4 files:
+The project is divided into 4 files: -----------------------------------------------------
 
 
 -ZhangCalibration: contains the ZhangCalibration function.
@@ -12,7 +12,7 @@ The project is divided into 4 files:
 -Project: contains the code that loads the calibration images, calls the previous functions for calibration and builds the images with the superimposed object.
 
 
-There are 3 folders in the project:
+There are 3 folders in the project: -------------------------------------------------------
 
 
 -CalibrationImages1: contains the calibration images from lab lecture 1
@@ -22,7 +22,7 @@ There are 3 folders in the project:
 -ScreenShot: contains screenshots of the superimposed object.
 
 
-Note:
+Note: ------------------------------------------------------------------------------------
 
 
 In the Project file header, you can change the ImageSet variable to switch between image sets. ImageSet=false to use the images from lab lecture 1, ImageSet=true to use the images from the smartphone.
