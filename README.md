@@ -24,6 +24,10 @@ There are 3 folders in the project: --------------------------------------------
 
 Note: ------------------------------------------------------------------------------------
 
+!! -> The file that has to be executed is "Project.m"
+
+!! -> In the Project.m file header, you can change the ImageSet variable to switch between image sets. ImageSet=false to use the images from lab lecture 1, ImageSet=true to use the images from the smartphone.
+
 !! -> Optimization ToolBox is needed to use the fsolve function. 
 
-!! -> In the Project file header, you can change the ImageSet variable to switch between image sets. ImageSet=false to use the images from lab lecture 1, ImageSet=true to use the images from the smartphone.
+!! -> ComputerVision ToolBox is needed to use the detectCheckerboardPoints function. 
