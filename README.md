@@ -19,7 +19,7 @@ There are 3 folders in the project: --------------------------------------------
 
 -CalibrationImages2: contains the calibration images obtained with the smartphone
 
--ScreenShot: contains screenshots of the superimposed object.
+-Screenshot: contains screenshots of the superimposed object.
 
 
 Note: ------------------------------------------------------------------------------------
