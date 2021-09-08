@@ -1,4 +1,5 @@
 
+
 function imageData= ZhangCalibration(imageData)
 
 %------------------------ESTIMATING H MATRIX-------------------------------
@@ -17,6 +18,7 @@ for ii =1: size(imageData,2)
         A=[A; m' O' -Xpixel *m';O' m' -Ypixel *m'];
         b=[b ;0;0];
     end
+    A(isnan(A))=0;
     [U,S,V]= svd(A);
     h=V(:, end); %right singular vector of the smallest singular value
     imageData (ii).H= reshape (h ,[3 3])';
@@ -56,7 +58,7 @@ end
 
 %-----------------ESTIMATING-R-AND-t-(extrinsic parameters)---------------
 for ii=1:size(imageData,2)
-    Kinv=inv(K);
+    Kinv=pinv(K);
     %taking the mean of |h1| and |h2| , because due to errors |h1|!=|h2|
     lambda = (1/norm(Kinv*imageData(ii).H(:,1))+1/norm(Kinv*imageData(ii).H(:,1)))/2;
     imageData(ii).R = [ lambda*Kinv*imageData(ii).H(:,1), lambda*Kinv*(imageData(ii).H(:,2))];
@@ -65,7 +67,7 @@ for ii=1:size(imageData,2)
     [U,S,V]=svd(imageData(ii).R);
     imageData(ii).R=U*V';
     imageData(ii).t=lambda*Kinv*imageData(ii).H(:,3);
-    imageData(ii).P= K*[imageData(ii).R,imageData(ii).t];
+    %imageData(ii).P= K*[imageData(ii).R,imageData(ii).t];
 end
 
 
