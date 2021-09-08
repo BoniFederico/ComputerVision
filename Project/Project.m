@@ -68,7 +68,7 @@ err=err/size(imageData,2);
 disp(strcat("Average of the reprojection errors of the images:",num2str(err)));
 
 %--- RADIAL DISTORTION COMPENSATION AND Z ORIENTATION --- --- --- --- ---
-imageData=compRadialDistortion(imageData,0000.1,[12 12]);
+imageData=compRadialDistortion(imageData,2e-3);
 imageData=SetZOrientation(imageData);
 
 
@@ -85,12 +85,13 @@ hnd= figure ;
 imshow ( imageData (imageIndex).I,'InitialMagnification' ,300)
 hold on
 for jj =1: size( imageData (imageIndex).XYpixel ,1)
-    x_true_proj= imageData (imageIndex).XYpixel (jj ,1);
-    y_true_proj= imageData (imageIndex).XYpixel (jj ,2);
+    x_true_proj= imageData (imageIndex).true_proj (jj ,1);
+    y_true_proj= imageData (imageIndex).true_proj (jj ,2);
     comp_proj_hom=imageData(imageIndex).P * transpose([imageData(imageIndex).XYmm(jj,:),0,1]);
     x_comp_proj=comp_proj_hom(1)/comp_proj_hom(3);
     y_comp_proj=comp_proj_hom(2)/comp_proj_hom(3);
     xy_dist=imageData(imageIndex).distortionModel(x_comp_proj,y_comp_proj);
+    xy_dist=[x_comp_proj,y_comp_proj];
     x_comp_proj=xy_dist(1);
     y_comp_proj=xy_dist(2);
     plot(x_true_proj, y_true_proj, '.r', 'MarkerSize',11);
@@ -157,8 +158,6 @@ else
         end
     end
 end
-
-
 
 
 
