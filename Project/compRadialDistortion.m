@@ -1,4 +1,13 @@
-function imageData = compRadialDistortion(imageData, threshold,kold)
+function imageData=compRadialDistortion(imageData,threshold)
+    for ii=1:size(imageData,2)
+       imageData(ii).true_proj=imageData(ii).XYpixel;
+    end
+   
+    imageData=compRadialDistortionRecursive(imageData,threshold,[inf,inf]);
+end
+
+
+function imageData = compRadialDistortionRecursive(imageData, threshold,kold)
 
 
 
@@ -35,14 +44,15 @@ if (norm(k-kold)<threshold)
         imageData(ii).distortionModel=@(u,v) [(u-u0)*(1+k(1)*Rd^2+k(2)*Rd^4)+u0, (v-v0)*(1+k(1)*Rd^2+k(2)*Rd^4)+v0];
         dist_reproj_errors=[];
         for jj=1:size(imageData(ii).XYpixel,1)
-            true_proj=imageData(ii).XYpixel(jj,:);
+            %true_proj=imageData(ii).XYpixel(jj,:);
+            true_proj=imageData(ii).true_proj(jj,:);  
             comp_proj_hom=imageData(ii).P * transpose([imageData(ii).XYmm(jj,:),0,1]);
             comp_proj=[comp_proj_hom(1)/comp_proj_hom(3);comp_proj_hom(2)/comp_proj_hom(3)];
             comp_proj=imageData(ii).distortionModel(comp_proj(1),comp_proj(2));
-
             dist_reproj_errors=[dist_reproj_errors;norm(true_proj-comp_proj)];
         end
         imageData(ii).dist_reproj_errors=mean(dist_reproj_errors);
+        
     end
     
     
@@ -51,7 +61,6 @@ end
 
 %-------------------COMPUTE NEW COORDINATES U,V----------------------------
 
-L=[];
 newImageData=[];
 newImageData.I=imageData.I;
 newImageData.XYmm=imageData.XYmm;
@@ -70,6 +79,7 @@ for ii=1:size(imageData,2)
         f=@(x) [x(1)*(1+k(1)*(x(1)^2+x(2)^2)+k(2)*(x(1)^4+2*x(1)^2*x(2)^2+x(2)^4))-x_,x(2)*((1+k(1)*(x(1)^2+x(2)^2)+k(2)*(x(1)^4+2*x(1)^2*x(2)^2+x(2)^4)))-y_];
         options = optimset('Display','off');
         res=fsolve(f,[x_,y_],options);
+ 
         imageData(ii).XYpixel(jj,1)=res(1)*alpha_u+u0;
         imageData(ii).XYpixel(jj,2)=res(2)*alpha_v+v0;
     end
@@ -79,7 +89,7 @@ end
 imageData=ZhangCalibration(imageData);
 
 %---------------------BACK TO STEP 1------------------------------
-imageData=compRadialDistortion(imageData, threshold,k);
+imageData=compRadialDistortionRecursive(imageData, threshold,k);
 
 
 end
