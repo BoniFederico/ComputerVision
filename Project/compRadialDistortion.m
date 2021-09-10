@@ -18,8 +18,6 @@ for ii=1:size(imageData,2)
     for jj=1:size(imageData(ii).XYpixel,1)
         u0=imageData(ii).K(1,3);
         v0=imageData(ii).K(2,3);
-        u_=imageData(ii).XYpixel(jj,1);
-        v_=imageData(ii).XYpixel(jj,2);
         
         u_=imageData(ii).true_proj(jj,1);
         v_=imageData(ii).true_proj(jj,2);
@@ -49,7 +47,6 @@ if (norm(k-kold)<threshold)
         imageData(ii).distortionModel=@(u,v) [(u-u0)*(1+k(1)*computeRd2(u,v)+k(2)*computeRd2(u,v)^2)+u0, (v-v0)*(1+k(1)*computeRd2(u,v)+k(2)*computeRd2(u,v)^2)+v0];
         dist_reproj_errors=[];
         for jj=1:size(imageData(ii).XYpixel,1)
-            %true_proj=imageData(ii).XYpixel(jj,:);
             true_proj=imageData(ii).true_proj(jj,:);  
             comp_proj_hom=imageData(ii).P * transpose([imageData(ii).XYmm(jj,:),0,1]);
             comp_proj=[comp_proj_hom(1)/comp_proj_hom(3);comp_proj_hom(2)/comp_proj_hom(3)];
