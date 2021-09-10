@@ -91,7 +91,6 @@ for jj =1: size( imageData (imageIndex).XYpixel ,1)
     x_comp_proj=comp_proj_hom(1)/comp_proj_hom(3);
     y_comp_proj=comp_proj_hom(2)/comp_proj_hom(3);
     xy_dist=imageData(imageIndex).distortionModel(x_comp_proj,y_comp_proj);
-    xy_dist=[x_comp_proj,y_comp_proj];
     x_comp_proj=xy_dist(1);
     y_comp_proj=xy_dist(2);
     plot(x_true_proj, y_true_proj, '.r', 'MarkerSize',11);
