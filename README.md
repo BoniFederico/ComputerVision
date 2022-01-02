@@ -1,4 +1,4 @@
-# ComputerVisionProject
+# ComputerVision
 
 The project is divided into 4 files: -----------------------------------------------------
 
