@@ -5,7 +5,7 @@
 ## DESCRIPTION  
 MatLab project that implement Zhang calibration for a camera. Developed for Computer Vision and Pattern Recognition course in University of Trieste.
 
-##PROJECT
+## PROJECT
 The project is divided into 4 files:  
 
 ```
